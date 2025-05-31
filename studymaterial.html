@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Material - ChemEng Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-light: linear-gradient(to right, #e0eafc, #cfdef3);
+      --bg-dark: #1e1e2f;
+      --text-light: #1e1e2f;
+      --text-dark: #f1f1f1;
+      --card-light: #fff;
+      --card-dark: #2a2a3c;
+      --primary: #1565c0;
+      --primary-dark: #0d47a1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      background-color: var(--card-light);
+      padding: 15px;
+      font-weight: 600;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      margin-bottom: 40px;
+      transition: background 0.3s;
+      flex-wrap: wrap;
+    }
+
+    body.dark-mode nav {
+      background-color: var(--card-dark);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+    }
+
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--primary);
+      border-radius: 2px;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+    }
+
+    header {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 2rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    body.dark-mode header {
+      color: var(--text-dark);
+    }
+
+    .section {
+      width: 100%;
+      max-width: 900px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      animation: fadeIn 0.6s ease;
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 12px;
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+
+    #subjectTitle {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      margin-top: 1rem;
+    }
+
+    body.dark-mode #subjectTitle {
+      color: var(--text-dark);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        gap: 20px;
+      }
+
+      header {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .button-group {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
+      button {
+        width: 90%;
+      }
+
+      header {
+        font-size: 1.8rem;
+      }
+    }
+
+    .toggle-mode {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 16px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <!-- 🌗 Toggle Mode Button -->
+  <button class="toggle-mode" onclick="toggleMode()">🌗 Mode</button>
+
+  <!-- ✅ Navbar -->
+  <nav>
+    <a href="index.html">HOME</a>
+    <a href="students.html">OUR STUDENTS</a>
+    <a href="usefulllink.html">USEFUL LINKS</a>
+    <a href="studymaterial.html" class="active">STUDY MATERIAL</a>
+    <a href="suggestion.html">SUGGESTIONS</a>
+  </nav>
+
+  <header>📚 Study Material - ChemEng Portal</header>
+
+  <div id="yearSection" class="section">
+    <div class="button-group">
+      <button onclick="showSubjects('first')">🎓 1st Year</button>
+      <button onclick="alert('🚧 2nd Year content coming soon...')">📘 2nd Year</button>
+    </div>
+  </div>
+
+  <div id="subjectsSection" class="section hidden">
+    <div class="button-group">
+      <button onclick="showMaterials('ED')">📐 Engineering Drawing</button>
+      <button onclick="showMaterials('CS')">💻 Computer Science</button>
+      <button onclick="showMaterials('EE')">⚡ Electrical Engineering</button>
+      <button onclick="showMaterials('PH')">🔬 Physics</button>
+      <button onclick="showMaterials('IK')">🧠 Indian Knowledge System</button>
+      <button onclick="showMaterials('ME')">⚙️ Mechanical Engineering</button>
+      <button onclick="showMaterials('HS')">📖 HS</button>
+    </div>
+    <div class="button-group">
+      <button onclick="goBackToYear()">⬅ Back</button>
+    </div>
+  </div>
+
+  <div id="materialsSection" class="section hidden">
+    <div id="subjectTitle"></div>
+    <div class="button-group">
+      <button onclick="comingSoon()">📝 Notes</button>
+      <button onclick="comingSoon()">📚 Tutorial</button>
+      <button onclick="comingSoon()">🧾 Lab Manual</button>
+      <button onclick="comingSoon()">🧪 Lab File</button>
+    </div>
+    <div class="button-group">
+      <button onclick="goBackToSubjects()">⬅ Back to Subjects</button>
+    </div>
+  </div>
+
+  <script>
+    function showSubjects(year) {
+      document.getElementById('yearSection').classList.add('hidden');
+      document.getElementById('materialsSection').classList.add('hidden');
+      document.getElementById('subjectsSection').classList.remove('hidden');
+    }
+
+    function showMaterials(subject) {
+      document.getElementById('subjectsSection').classList.add('hidden');
+      document.getElementById('materialsSection').classList.remove('hidden');
+      document.getElementById('subjectTitle').innerText = `${subject} Materials`;
+    }
+
+    function goBackToSubjects() {
+      document.getElementById('materialsSection').classList.add('hidden');
+      document.getElementById('subjectsSection').classList.remove('hidden');
+    }
+
+    function goBackToYear() {
+      document.getElementById('subjectsSection').classList.add('hidden');
+      document.getElementById('yearSection').classList.remove('hidden');
+    }
+
+    function comingSoon() {
+      alert('🚧 Content coming soon...');
+    }
+
+    function toggleMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+</body>
+</html>

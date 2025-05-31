@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Students - IIT Patna ChemEng 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #007BFF;
+      --highlight: #1565c0;
+      --bg: #ffffff;
+      --bg-dark: #121212;
+      --white: #fff;
+      --card-dark: #1e1e1e;
+      --text: #333;
+      --text-dark: #f1f1f1;
+      --muted: #666;
+      --insta: #E1306C;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 1rem;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      background-color: var(--white);
+      padding: 15px;
+      font-weight: 600;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      transition: background 0.3s;
+    }
+
+    body.dark-mode nav {
+      background-color: var(--card-dark);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+    }
+
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--highlight);
+      border-radius: 2px;
+    }
+
+    nav a:hover {
+      color: var(--highlight);
+    }
+
+    header {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: var(--highlight);
+    }
+
+    .mode-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 16px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .students-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .student-card {
+      background: var(--white);
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 20px;
+      width: 250px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode .student-card {
+      background: var(--card-dark);
+      color: var(--text-dark);
+    }
+
+    .student-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    .student-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .name {
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+
+    .roll {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .student-card a {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--primary);
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .student-card a:hover {
+      border-bottom: 1px solid var(--primary);
+    }
+
+    .insta-link {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--insta);
+      font-weight: 500;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: 0.3s ease;
+    }
+
+    .insta-link:hover {
+      text-decoration: underline;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      animation: fadeIn 0.3s ease;
+    }
+
+    body.dark-mode .modal {
+      background: var(--card-dark);
+      color: var(--text-dark);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      color: #888;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .student-card {
+        width: 90%;
+      }
+
+      header {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 🌗 Toggle Mode Button -->
+  <button class="mode-toggle" onclick="toggleMode()">🌗 Mode</button>
+
+  <!-- ✅ Navbar -->
+  <nav>
+    <a href="index.html">HOME</a>
+    <a href="students.html" class="active">OUR STUDENTS</a>
+    <a href="usefulllink.html">USEFUL LINKS</a>
+    <a href="studymaterial.html">STUDY MATERIAL</a>
+    <a href="suggestion.html">SUGGESTIONS</a>
+  </nav>
+
+  <header>Our Students - IIT Patna ChemEng 2025</header>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search by Roll Number..." aria-label="Search by Roll Number">
+  </div>
+
+  <section class="students-list" id="studentsList">
+  <div class="student-card" data-roll="2401CB42" data-name="Anand Kumar Pandit" data-img="Anand.jpg" data-bio="An aspiring engineer passionate about robotics and automation." data-insta="https://instagram.com/anand_pdt/">
+    <img src="Anand.jpg" alt="Anand Kumar Pandit">
+    <div class="name">Anand Kumar Pandit</div>
+    <div class="roll">2401CB42</div>
+    <a class="view-profile">View Profile</a>
+  </div>
+
+  <div class="student-card" data-roll="2401CB19" data-name="Adarsh Kumar" data-img="adarsh.jpg" data-bio="Adarsh, the unofficial Shayar of IIT Patna..." data-insta="https://instagram.com/adarsh_iitp/">
+    <img src="adarsh.jpg" alt="Adarsh Kumar">
+    <div class="name">Adarsh Kumar</div>
+    <div class="roll">2401CB19</div>
+    <a class="view-profile">View Profile</a>
+  </div>
+
+  <div class="student-card" data-roll="2401CB32" data-name="Anurag Prashar" data-img="anurag.jpg" data-bio="Hey, I'm Anurag! A sports enthusiast with a special love for football, I thrive on the energy and spirit of the game. Known for my playful roasts and lighthearted humor, I bring fun wherever I go—though many still call me the “innocent” one. I enjoy exploring life up close, diving into new experiences with curiosity and passion. Whether it’s on the field or off it, I believe in giving my all and keeping things real. Always up for a good challenge, a good laugh, and a good story. Let’s see where this journey takes me!" data-insta="https://www.instagram.com/_anurag__444/">
+    <img src="anurag.jpg" alt="Anurag Prashar">
+    <div class="name">Anurag Prashar</div>
+    <div class="roll">2401CB32</div>
+    <a class="view-profile">View Profile</a>
+  </div>
+  <div class="student-card" data-roll="2401CB33" data-name="Nittin Kumar" data-img="nittin.jpg" data-bio="An aspiring engineer passionate about robotics and automation." data-insta="https://instagram.com/nittin_82684/">
+    <img src="nittin.jpg" alt="Nittin Kumar">
+    <div class="name">Nittin Kumar</div>
+    <div class="roll">2401CB33</div>
+    <a class="view-profile">View Profile</a>
+  </div>
+</section>
+
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modalContent">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <img id="modalImg" src="" alt="" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 10px;">
+      <h2 id="modalName"></h2>
+      <p id="modalRoll"></p>
+      <p id="modalBio"></p>
+      <a href="#" id="modalInsta" class="insta-link" target="_blank" style="display:none">📸 Instagram</a>
+    </div>
+  </div>
+
+  <footer>&copy; 2025 IIT Patna | Department of Chemical Engineering</footer>
+
+  <script>
+    function toggleMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    const searchInput = document.getElementById("searchInput");
+    const studentCards = document.querySelectorAll(".student-card");
+    const modalOverlay = document.getElementById("modalOverlay");
+
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toUpperCase();
+      studentCards.forEach(card => {
+        const roll = card.getAttribute("data-roll");
+        card.style.display = roll.includes(query) ? "block" : "none";
+      });
+    });
+
+    document.querySelectorAll(".view-profile").forEach(button => {
+      button.addEventListener("click", function () {
+        const card = this.closest(".student-card");
+        document.getElementById("modalImg").src = card.getAttribute("data-img");
+        document.getElementById("modalName").textContent = card.getAttribute("data-name");
+        document.getElementById("modalRoll").textContent = card.getAttribute("data-roll");
+        document.getElementById("modalBio").textContent = card.getAttribute("data-bio");
+
+        const instaLink = card.getAttribute("data-insta");
+        const instaAnchor = document.getElementById("modalInsta");
+        if (instaLink) {
+          instaAnchor.href = instaLink;
+          instaAnchor.style.display = 'inline-block';
+        } else {
+          instaAnchor.style.display = 'none';
+        }
+
+        modalOverlay.style.display = "flex";
+      });
+    });
+
+    function closeModal() {
+      modalOverlay.style.display = "none";
+    }
+
+    window.addEventListener("click", (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+  </script>
+</body>
+</html>

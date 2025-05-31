@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Suggestions - ChemEng Portal</title>
+  <style>
+    :root {
+      --bg-light: linear-gradient(to right, #e0ecff, #f5f7fa);
+      --bg-dark: #1e1e2f;
+      --text-light: #333;
+      --text-dark: #f1f1f1;
+      --card-light: #fff;
+      --card-dark: #2a2a3c;
+      --blue: #007bff;
+      --blue-dark: #005ad4;
+      --green: #28a745;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: var(--bg-light);
+      color: var(--text-light);
+      padding: 20px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      background-color: var(--card-light);
+      padding: 15px;
+      font-weight: 600;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    body.dark-mode nav {
+      background-color: var(--card-dark);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+    }
+
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--blue);
+      border-radius: 2px;
+    }
+
+    nav a:hover {
+      color: var(--blue);
+    }
+
+    .toggle-mode {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      background: var(--blue);
+      color: white;
+      border: none;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: var(--card-light);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      animation: slideIn 0.6s ease;
+      transition: background 0.3s;
+    }
+
+    body.dark-mode .container {
+      background: var(--card-dark);
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2.2em;
+      margin-bottom: 10px;
+    }
+
+    p.description {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #555;
+    }
+
+    body.dark-mode p.description {
+      color: #ccc;
+    }
+
+    form input,
+    form select,
+    form textarea {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1em;
+    }
+
+    form textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    form button {
+      width: 100%;
+      padding: 14px;
+      font-size: 1.1em;
+      border-radius: 12px;
+      cursor: pointer;
+      border: none;
+      background: var(--blue);
+      color: white;
+      transition: 0.3s ease;
+    }
+
+    form button:hover {
+      background: var(--blue-dark);
+    }
+
+    .toast {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--green);
+      color: white;
+      padding: 16px 24px;
+      border-radius: 10px;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    @keyframes fadein {
+      from { opacity: 0; right: 0; }
+      to { opacity: 1; right: 20px; }
+    }
+
+    @keyframes fadeout {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    .dashboard {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .dashboard a {
+      text-decoration: none;
+      color: white;
+      background-color: var(--blue);
+      padding: 12px 20px;
+      border-radius: 8px;
+      display: inline-block;
+      transition: background 0.3s;
+    }
+
+    .dashboard a:hover {
+      background-color: var(--blue-dark);
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .container {
+        padding: 25px;
+        border-radius: 15px;
+      }
+      h2 {
+        font-size: 1.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🌗 Toggle Button -->
+  <button class="toggle-mode" onclick="toggleMode()">🌗 Mode</button>
+
+  <!-- ✅ Navbar -->
+  <nav>
+    <a href="index.html">HOME</a>
+    <a href="students.html">OUR STUDENTS</a>
+    <a href="usefulllink.html">USEFUL LINKS</a>
+    <a href="studymaterial.html">STUDY MATERIAL</a>
+    <a href="suggestion.html" class="active">SUGGESTIONS</a>
+  </nav>
+
+  <div class="container">
+    <h2>📬 Share Your Suggestions</h2>
+    <p class="description">We’d love to hear your ideas to make the ChemEng Portal even better!</p>
+    <form id="suggestionForm" action="https://api.sheetbest.com/sheets/98715fba-a56c-46bb-9035-677e21363964" method="POST">
+      <input type="text" name="name" placeholder="Your Name (optional)" />
+      <input type="email" name="email" placeholder="Email (optional)" />
+      <select name="type" required>
+        <option disabled selected>Type of Suggestion</option>
+        <option>Feature Request</option>
+        <option>Bug Report</option>
+        <option>Content Suggestion</option>
+        <option>General Feedback</option>
+      </select>
+      <textarea name="message" placeholder="Write your suggestion here..." required></textarea>
+      <input type="text" name="attachment" placeholder="Attachment link (optional)" />
+      <button type="submit">Submit</button>
+    </form>
+    <div class="dashboard">
+      <p>📊 Want to view all suggestions?</p>
+      <a href="https://docs.google.com/spreadsheets/d/1AjA3i1lzP5ZxLHZQeZB2mBh6TW9DMBKexwq9LgLg7A4/edit" target="_blank">Open Dashboard</a>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">✅ Suggestion submitted successfully!</div>
+
+  <script>
+    const form = document.getElementById('suggestionForm');
+    const toast = document.getElementById('toast');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const jsonData = {};
+      formData.forEach((value, key) => {
+        jsonData[key] = value;
+      });
+
+      fetch(form.action, {
+        method: 'POST',
+        body: JSON.stringify(jsonData),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          toast.style.display = 'block';
+          form.reset();
+          setTimeout(() => {
+            toast.style.display = 'none';
+          }, 3000);
+        } else {
+          alert('❌ Submission failed. Please try again.');
+        }
+      }).catch(() => {
+        alert('❌ Error occurred. Try again later.');
+      });
+    });
+
+    function toggleMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+</body>
+</html>
