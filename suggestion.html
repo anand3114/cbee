@@ -75,15 +75,22 @@
 
     .toggle-mode {
       position: fixed;
-      top: 20px;
+      bottom: 20px;
       right: 20px;
-      padding: 10px 16px;
-      border-radius: 8px;
+      padding: 14px;
+      border-radius: 50%;
       background: var(--blue);
       color: white;
       border: none;
       cursor: pointer;
       z-index: 1000;
+      font-size: 1.3em;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .container {
@@ -211,12 +218,22 @@
         font-size: 1.8em;
       }
     }
+
+    @media (max-width: 480px) {
+      .toggle-mode {
+        bottom: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.1em;
+      }
+    }
   </style>
 </head>
 <body>
 
   <!-- 🌗 Toggle Button -->
-  <button class="toggle-mode" onclick="toggleMode()">🌗 Mode</button>
+  <button class="toggle-mode" onclick="toggleMode()">🌗</button>
 
   <!-- ✅ Navbar -->
   <nav>
