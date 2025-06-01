@@ -87,15 +87,25 @@
 
     .mode-toggle {
       position: fixed;
-      top: 20px;
+      bottom: 20px;
       right: 20px;
-      padding: 10px 16px;
+      padding: 10px 14px;
       background: var(--primary);
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 50%;
       cursor: pointer;
       z-index: 1000;
+      font-size: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .mode-toggle {
+        bottom: 15px;
+        right: 15px;
+        padding: 8px 10px;
+        font-size: 14px;
+      }
     }
 
     .search-container {
@@ -258,7 +268,7 @@
 
 <body>
   <!-- 🌗 Toggle Mode Button -->
-  <button class="mode-toggle" onclick="toggleMode()">🌗 Mode</button>
+  <button class="mode-toggle" onclick="toggleMode()">🌗</button>
 
   <!-- ✅ Navbar -->
   <nav>
@@ -276,34 +286,34 @@
   </div>
 
   <section class="students-list" id="studentsList">
-  <div class="student-card" data-roll="2401CB42" data-name="Anand Kumar Pandit" data-img="Anand.jpg" data-bio="An aspiring engineer passionate about robotics and automation." data-insta="https://instagram.com/anand_pdt/">
-    <img src="Anand.jpg" alt="Anand Kumar Pandit">
-    <div class="name">Anand Kumar Pandit</div>
-    <div class="roll">2401CB42</div>
-    <a class="view-profile">View Profile</a>
-  </div>
+    <div class="student-card" data-roll="2401CB42" data-name="Anand Kumar Pandit" data-img="Anand.jpg" data-bio="An aspiring engineer passionate about robotics and automation." data-insta="https://instagram.com/anand_pdt/">
+      <img src="Anand.jpg" alt="Anand Kumar Pandit">
+      <div class="name">Anand Kumar Pandit</div>
+      <div class="roll">2401CB42</div>
+      <a class="view-profile">View Profile</a>
+    </div>
 
-  <div class="student-card" data-roll="2401CB19" data-name="Adarsh Kumar" data-img="adarsh.jpg" data-bio="Adarsh, the unofficial Shayar of IIT Patna..." data-insta="https://instagram.com/adarsh_iitp/">
-    <img src="adarsh.jpg" alt="Adarsh Kumar">
-    <div class="name">Adarsh Kumar</div>
-    <div class="roll">2401CB19</div>
-    <a class="view-profile">View Profile</a>
-  </div>
+    <div class="student-card" data-roll="2401CB19" data-name="Adarsh Kumar" data-img="adarsh.jpg" data-bio="Adarsh, the unofficial Shayar of IIT Patna..." data-insta="https://instagram.com/adarsh_iitp/">
+      <img src="adarsh.jpg" alt="Adarsh Kumar">
+      <div class="name">Adarsh Kumar</div>
+      <div class="roll">2401CB19</div>
+      <a class="view-profile">View Profile</a>
+    </div>
 
-  <div class="student-card" data-roll="2401CB32" data-name="Anurag Prashar" data-img="anurag.jpg" data-bio="Hey, I'm Anurag! A sports enthusiast with a special love for football, I thrive on the energy and spirit of the game. Known for my playful roasts and lighthearted humor, I bring fun wherever I go—though many still call me the “innocent” one. I enjoy exploring life up close, diving into new experiences with curiosity and passion. Whether it’s on the field or off it, I believe in giving my all and keeping things real. Always up for a good challenge, a good laugh, and a good story. Let’s see where this journey takes me!" data-insta="https://www.instagram.com/_anurag__444/">
-    <img src="anurag.jpg" alt="Anurag Prashar">
-    <div class="name">Anurag Prashar</div>
-    <div class="roll">2401CB32</div>
-    <a class="view-profile">View Profile</a>
-  </div>
-  <div class="student-card" data-roll="2401CB33" data-name="Nittin Kumar" data-img="nittin.jpg" data-bio="An aspiring engineer passionate about robotics and automation." data-insta="https://instagram.com/nittin_82684/">
-    <img src="nittin.jpg" alt="Nittin Kumar">
-    <div class="name">Nittin Kumar</div>
-    <div class="roll">2401CB33</div>
-    <a class="view-profile">View Profile</a>
-  </div>
-</section>
+    <div class="student-card" data-roll="2401CB32" data-name="Anurag Prashar" data-img="anurag.jpg" data-bio="Hey, I'm Anurag! A sports enthusiast..." data-insta="https://www.instagram.com/_anurag__444/">
+      <img src="anurag.jpg" alt="Anurag Prashar">
+      <div class="name">Anurag Prashar</div>
+      <div class="roll">2401CB32</div>
+      <a class="view-profile">View Profile</a>
+    </div>
 
+    <div class="student-card" data-roll="2401CB33" data-name="Nittin Kumar" data-img="nittin.jpg" data-bio="An aspiring engineer passionate about robotics and automation." data-insta="https://instagram.com/nittin_82684/">
+      <img src="nittin.jpg" alt="Nittin Kumar">
+      <div class="name">Nittin Kumar</div>
+      <div class="roll">2401CB33</div>
+      <a class="view-profile">View Profile</a>
+    </div>
+  </section>
 
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal" id="modalContent">
