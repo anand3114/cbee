@@ -75,15 +75,25 @@
 
     .mode-toggle {
       position: fixed;
-      top: 20px;
+      bottom: 20px;
       right: 20px;
-      padding: 10px 20px;
+      padding: 10px 14px;
       background: var(--primary);
       color: white;
       border: none;
-      border-radius: 20px;
+      border-radius: 50%;
       cursor: pointer;
       z-index: 1000;
+      font-size: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .mode-toggle {
+        bottom: 15px;
+        right: 15px;
+        padding: 8px 10px;
+        font-size: 14px;
+      }
     }
 
     .search-bar {
@@ -175,7 +185,7 @@
 
     #backToTop {
       position: fixed;
-      bottom: 20px;
+      bottom: 80px; /* adjusted to not overlap toggle button */
       right: 20px;
       padding: 10px 15px;
       background: var(--primary);
@@ -205,7 +215,7 @@
 </head>
 <body>
   <!-- ✅ Dark Mode Toggle -->
-  <button class="mode-toggle" onclick="toggleDarkMode()">🌙 Toggle Mode</button>
+  <button class="mode-toggle" onclick="toggleDarkMode()">🌗</button>
 
   <!-- ✅ Navbar -->
   <nav>
