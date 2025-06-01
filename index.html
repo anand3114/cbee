@@ -73,15 +73,25 @@
 
     .toggle-mode {
       position: fixed;
-      top: 20px;
+      bottom: 20px;
       right: 20px;
-      padding: 10px 16px;
-      border-radius: 8px;
+      padding: 10px 14px;
+      border-radius: 50%;
       background: var(--blue);
       color: white;
       border: none;
       cursor: pointer;
       z-index: 1000;
+      font-size: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .toggle-mode {
+        bottom: 15px;
+        right: 15px;
+        padding: 8px 10px;
+        font-size: 14px;
+      }
     }
 
     .hero {
@@ -240,7 +250,7 @@
 <body>
 
   <!-- 🌗 Dark Mode Toggle -->
-  <button class="toggle-mode" onclick="toggleMode()">🌗 Mode</button>
+  <button class="toggle-mode" onclick="toggleMode()">🌗</button>
 
   <!-- ✅ Navbar -->
   <nav>
@@ -279,12 +289,11 @@
       <div class="student-card"><img src="anurag.jpg" alt="Anurag"><div>Anurag</div></div>
       <!-- Hidden cards here -->
       <div class="student-card hidden"><img src="images/student5.jpg" alt="Student"><div>Student 5</div></div>
-       <div class="student-card hidden"><img src="images/student5.jpg" alt="Student"><div>Student 5</div></div>
-        <div class="student-card hidden"><img src="images/student5.jpg" alt="Student"><div>Student 5</div></div>
-         <div class="student-card hidden"><img src="images/student5.jpg" alt="Student"><div>Student 5</div></div>
-          <div class="student-card hidden"><img src="images/student5.jpg" alt="Student"><div>Student 5</div></div>
-           <div class="student-card hidden"><img src="images/student5.jpg" alt="Student"><div>Student 5</div></div>
-      <!-- ... add more as needed ... -->
+      <div class="student-card hidden"><img src="images/student5.jpg" alt="Student"><div>Student 5</div></div>
+      <div class="student-card hidden"><img src="images/student5.jpg" alt="Student"><div>Student 5</div></div>
+      <div class="student-card hidden"><img src="images/student5.jpg" alt="Student"><div>Student 5</div></div>
+      <div class="student-card hidden"><img src="images/student5.jpg" alt="Student"><div>Student 5</div></div>
+      <div class="student-card hidden"><img src="images/student5.jpg" alt="Student"><div>Student 5</div></div>
     </div>
     <div style="text-align: right; margin-top: 20px;">
       <span class="see-more" onclick="showMoreStudents()">See More</span>
