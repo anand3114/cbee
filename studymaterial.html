@@ -16,13 +16,11 @@
       --primary: #1565c0;
       --primary-dark: #0d47a1;
     }
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-
     body {
       font-family: 'Inter', sans-serif;
       background: var(--bg-light);
@@ -31,12 +29,10 @@
       padding: 2rem 1rem;
       transition: background 0.3s, color 0.3s;
     }
-
     body.dark-mode {
       background: var(--bg-dark);
       color: var(--text-dark);
     }
-
     nav {
       display: flex;
       justify-content: center;
@@ -46,20 +42,16 @@
       font-weight: 600;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
       margin-bottom: 40px;
-      transition: background 0.3s;
       flex-wrap: wrap;
     }
-
     body.dark-mode nav {
       background-color: var(--card-dark);
     }
-
     nav a {
       text-decoration: none;
       color: inherit;
       position: relative;
     }
-
     nav a.active::after {
       content: '';
       position: absolute;
@@ -70,11 +62,9 @@
       background-color: var(--primary);
       border-radius: 2px;
     }
-
     nav a:hover {
       color: var(--primary);
     }
-
     header {
       font-size: 2.5rem;
       font-weight: 700;
@@ -83,11 +73,9 @@
       text-align: center;
       width: 100%;
     }
-
     body.dark-mode header {
       color: var(--text-dark);
     }
-
     .section {
       width: 100%;
       max-width: 900px;
@@ -98,14 +86,12 @@
       gap: 1rem;
       animation: fadeIn 0.6s ease;
     }
-
     .button-group {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 1rem;
     }
-
     button {
       padding: 0.75rem 1.5rem;
       border: none;
@@ -118,28 +104,14 @@
       transition: all 0.3s ease;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-
     button:hover {
       background: var(--primary-dark);
       transform: translateY(-2px);
       box-shadow: 0 6px 18px rgba(0,0,0,0.2);
     }
-
-    #subjectTitle {
-      font-size: 1.8rem;
-      font-weight: 600;
-      color: var(--primary-dark);
-      margin-top: 1rem;
-    }
-
-    body.dark-mode #subjectTitle {
-      color: var(--text-dark);
-    }
-
     .hidden {
       display: none;
     }
-
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -150,75 +122,59 @@
         transform: translateY(0);
       }
     }
-
     @media (max-width: 768px) {
       nav {
         gap: 20px;
       }
-
       header {
         font-size: 2rem;
       }
     }
-
     @media (max-width: 480px) {
       nav {
         flex-direction: column;
         align-items: center;
         gap: 10px;
       }
-
       .button-group {
         flex-direction: column;
         align-items: center;
         width: 100%;
       }
-
       button {
         width: 90%;
       }
-
       header {
         font-size: 1.8rem;
       }
     }
-
-   .toggle-mode {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 48px;
-  height: 48px;
-  padding: 0;
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  font-size: 20px;
-  cursor: pointer;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-@media (max-width: 768px) {
-  .toggle-mode {
-    width: 42px;
-    height: 42px;
-    font-size: 16px;
-    bottom: 15px;
-    right: 15px;
-  }
-}
+    .toggle-mode {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 48px;
+      height: 48px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .credit {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
   </style>
 </head>
 <body>
-  <!-- 🌗 Toggle Mode Button -->
   <button class="toggle-mode" onclick="toggleMode()">🌗</button>
 
-  <!-- ✅ Navbar -->
   <nav>
     <a href="index.html">HOME</a>
     <a href="students.html">OUR STUDENTS</a>
@@ -229,70 +185,155 @@
 
   <header>📚 Study Material - ChemEng Portal</header>
 
+  <!-- Year Selection -->
   <div id="yearSection" class="section">
     <div class="button-group">
-      <button onclick="showSubjects('first')">🎓 1st Year</button>
-      <button onclick="alert('🚧 2nd Year content coming soon...')">📘 2nd Year</button>
+      <button onclick="alert('🚧 1st Year content coming soon...')">🎓 1st Year</button>
+      <button onclick="showSemester()">📘 2nd Year</button>
     </div>
   </div>
 
-  <div id="subjectsSection" class="section hidden">
+  <!-- Semester Selection -->
+  <div id="semesterSection" class="section hidden">
     <div class="button-group">
-      <button onclick="showMaterials('ED')">📐 Engineering Drawing</button>
-      <button onclick="showMaterials('CS')">💻 Computer Science</button>
-      <button onclick="showMaterials('EE')">⚡ Electrical Engineering</button>
-      <button onclick="showMaterials('PH')">🔬 Physics</button>
-      <button onclick="showMaterials('IK')">🧠 Indian Knowledge System</button>
-      <button onclick="showMaterials('ME')">⚙️ Mechanical Engineering</button>
-      <button onclick="showMaterials('HS')">📖 HS</button>
+      <button onclick="showSubjects()">🧪 3rd Semester</button>
+      <button onclick="comingSoon()">📘 4th Semester</button>
     </div>
     <div class="button-group">
       <button onclick="goBackToYear()">⬅ Back</button>
     </div>
   </div>
 
-  <div id="materialsSection" class="section hidden">
-    <div id="subjectTitle"></div>
+  <!-- Subjects -->
+  <div id="subjectsSection" class="section hidden">
     <div class="button-group">
-      <button onclick="comingSoon()">📝 Notes</button>
-      <button onclick="comingSoon()">📚 Tutorial</button>
-      <button onclick="comingSoon()">🧾 Lab Manual</button>
-      <button onclick="comingSoon()">🧪 Lab File</button>
+      <button onclick="showMaterials('CB2101')">Intro to Chem Eng<br><span class="course code">CB2101</span><br><span class="credit">(2 Cr)</span><br>
+      </button>
+      <button onclick="showMaterials('CB2102')">Fluid Mechanics<br><span class="course code">CB2102</span><br><span class="credit">(5 Cr)</span></button>
+      <button onclick="showMaterials('CB2103')">Heat Transfer<br><span class="course code">CB2103</span><br><span class="credit">(4.5 Cr)</span></button>
+      <button onclick="showMaterials('CB2104')">Chem Proc Calcs<br><span class="course code">CB2104</span><br><span class="credit">(4 Cr)</span></button>
+      <button onclick="showMaterials('CB2105')">Chem Eng Thermo<br><span class="course code">CB2105</span><br><span class="credit">(3 Cr)</span></button>
+      <button onclick="showMaterials('HS21PQ')">HSS Elective-I<br><span class="course code">HS21PQ</span><br><span class="credit">(3 Cr)</span></button>
     </div>
+    <div class="button-group">
+      <button onclick="goBackToSemester()">⬅ Back</button>
+    </div>
+  </div>
+
+  <!-- Material Options -->
+  <div id="materialsSection" class="section hidden">
+    <div id="subjectTitle" style="font-size: 1.8rem; font-weight: 600; color: var(--primary-dark); margin-top: 1rem;"></div>
+    <div id="materialsButtons" class="button-group"></div>
     <div class="button-group">
       <button onclick="goBackToSubjects()">⬅ Back to Subjects</button>
     </div>
   </div>
 
   <script>
-    function showSubjects(year) {
-      document.getElementById('yearSection').classList.add('hidden');
-      document.getElementById('materialsSection').classList.add('hidden');
-      document.getElementById('subjectsSection').classList.remove('hidden');
+    let currentSubject = "";
+
+    const links = {
+      CB2101: {
+        notes: "https://drive.google.com/drive/folders/1ODcjWhQTpHkbaVREaBsvFZMvqab-umIQ",
+        pyq: "https://drive.google.com/drive/folders/1kPgTJ-Ja_poIrudQiGq9FFsYxXHQTo--"
+      },
+      CB2102: {
+        notes: "https://drive.google.com/drive/folders/1SzsZSEM35Gsi53WJkjlnUdyQu8rnr3yX",
+        pyq: "https://drive.google.com/drive/folders/1mpoqNlPc20nbt7s0GOIrXYzH2lM3rOvs",
+        books: "https://drive.google.com/drive/folders/1D4BWkMNeAc5adzSKaO-IMOyRR9iYd1EI",
+        slides: "https://drive.google.com/drive/folders/1JJTjVsH2TgwcL2YQ-yrytMVCpi7mzsZ0"
+      },
+      CB2103: {
+        notes: "https://drive.google.com/drive/folders/1wm2mOyeV_HbltLMcWenzkL4XbkTc1d71?usp=sharing",
+        pyq: "https://drive.google.com/drive/folders/1dF7y689w4rEgXhlp0SmWMhgOzQOt4BY0?usp=sharing",
+        books: "https://drive.google.com/drive/folders/1dWi8arFiI4PVY8ks4elicLers4gLxypj?usp=sharing"
+      },
+      CB2104: {
+        notes: "https://drive.google.com/drive/folders/1-lyNZqsjzH_I8kdQx_U9evh1_Ls42wVX",
+        pyq: "https://drive.google.com/drive/folders/1NgpaKiUvOqXvt_cRU8NOjpv2PTb7QR1c",
+        books: "https://drive.google.com/drive/folders/1ERKF7O9RSiksxVRKpbuwGIWC_FNVviIv"
+      },
+      CB2105: {
+        notes: "https://drive.google.com/drive/folders/1gALcG2yjd5_L5FbFk6M3wueTmp7BTL1M",
+        pyq: "https://drive.google.com/drive/folders/1FoMsftjvPC0DsCflNmpsKfBJyStGL_u6",
+        books: "https://drive.google.com/drive/folders/1DH0pWQdMOOG1SUk1bYpdZmWh-ypjFEHL",
+        slides: "https://drive.google.com/drive/folders/1kZ3OnpEq404CPXDt1TWpzpp4vj-3co5Z"
+      },
+      HS21PQ: {
+        notes: "HS21PQ_notes_drivelink",
+        pyq: "HS21PQ_pyq_drivelink",
+        books: "HS21PQ_books_drivelink",
+        slides: "HS21PQ_slides_drivelink"
+      }
+    };
+
+    function toggleMode() {
+      document.body.classList.toggle("dark-mode");
     }
 
-    function showMaterials(subject) {
-      document.getElementById('subjectsSection').classList.add('hidden');
-      document.getElementById('materialsSection').classList.remove('hidden');
-      document.getElementById('subjectTitle').innerText = `${subject} Materials`;
-    }
-
-    function goBackToSubjects() {
-      document.getElementById('materialsSection').classList.add('hidden');
-      document.getElementById('subjectsSection').classList.remove('hidden');
+    function showSemester() {
+      document.getElementById("yearSection").classList.add("hidden");
+      document.getElementById("semesterSection").classList.remove("hidden");
     }
 
     function goBackToYear() {
-      document.getElementById('subjectsSection').classList.add('hidden');
-      document.getElementById('yearSection').classList.remove('hidden');
+      document.getElementById("semesterSection").classList.add("hidden");
+      document.getElementById("yearSection").classList.remove("hidden");
+    }
+
+    function showSubjects() {
+      document.getElementById("semesterSection").classList.add("hidden");
+      document.getElementById("subjectsSection").classList.remove("hidden");
+    }
+
+    function goBackToSemester() {
+      document.getElementById("subjectsSection").classList.add("hidden");
+      document.getElementById("semesterSection").classList.remove("hidden");
     }
 
     function comingSoon() {
-      alert('🚧 Content coming soon...');
+      alert("🚧 4th Semester content coming soon...");
     }
 
-    function toggleMode() {
-      document.body.classList.toggle('dark-mode');
+    function showMaterials(subjectCode) {
+      currentSubject = subjectCode;
+      document.getElementById("subjectsSection").classList.add("hidden");
+      document.getElementById("materialsSection").classList.remove("hidden");
+      document.getElementById("subjectTitle").innerText = subjectCode + " Materials";
+
+      const materialsButtons = document.getElementById("materialsButtons");
+      materialsButtons.innerHTML = "";
+
+      const availableLinks = links[currentSubject];
+      const buttonData = {
+        notes: "📝 Notes",
+        pyq: "📄 PYQs",
+        books: "📚 Books",
+        slides: "📽️ Lecture Slides"
+      };
+
+      for (const key in buttonData) {
+        if (availableLinks[key]) {
+          const btn = document.createElement("button");
+          btn.innerText = buttonData[key];
+          btn.onclick = () => openDrive(key);
+          materialsButtons.appendChild(btn);
+        }
+      }
+    }
+
+    function goBackToSubjects() {
+      document.getElementById("materialsSection").classList.add("hidden");
+      document.getElementById("subjectsSection").classList.remove("hidden");
+    }
+
+    function openDrive(type) {
+      const url = links[currentSubject]?.[type];
+      if (url) {
+        window.open(url, '_blank');
+      } else {
+        alert("🚧 Link not available for this type.");
+      }
     }
   </script>
 </body>
