@@ -17,6 +17,7 @@
       --text-dark: #f1f1f1;
       --muted: #666;
       --insta: #E1306C;
+      --linkedin: #0a66c2;
     }
 
     * {
@@ -99,15 +100,6 @@
       font-size: 16px;
     }
 
-    @media (max-width: 768px) {
-      .mode-toggle {
-        bottom: 15px;
-        right: 15px;
-        padding: 8px 10px;
-        font-size: 14px;
-      }
-    }
-
     .search-container {
       display: flex;
       justify-content: center;
@@ -186,17 +178,24 @@
       border-bottom: 1px solid var(--primary);
     }
 
-    .insta-link {
+    .insta-link, .linkedin-link {
       display: inline-block;
-      margin-top: 12px;
-      color: var(--insta);
+      margin-top: 8px;
       font-weight: 500;
       text-decoration: none;
       font-size: 0.95rem;
       transition: 0.3s ease;
     }
 
-    .insta-link:hover {
+    .insta-link {
+      color: var(--insta);
+    }
+
+    .linkedin-link {
+      color: var(--linkedin);
+    }
+
+    .insta-link:hover, .linkedin-link:hover {
       text-decoration: underline;
     }
 
@@ -265,12 +264,9 @@
     }
   </style>
 </head>
-
 <body>
-  <!-- 🌗 Toggle Mode Button -->
   <button class="mode-toggle" onclick="toggleMode()">🌗</button>
 
-  <!-- ✅ Navbar -->
   <nav>
     <a href="index.html">HOME</a>
     <a href="students.html" class="active">OUR STUDENTS</a>
@@ -286,31 +282,249 @@
   </div>
 
   <section class="students-list" id="studentsList">
-    <div class="student-card" data-roll="2401CB42" data-name="Anand Kumar Pandit" data-img="images/Anand.jpg" data-bio="An aspiring engineer passionate about robotics and automation." data-insta="https://instagram.com/anand_pdt/">
+    <div class="student-card" 
+         data-roll="2401CB42" 
+         data-name="Anand Kumar Pandit" 
+         data-img="images/Anand.jpg" 
+         data-bio="An aspiring engineer passionate about robotics and automation." 
+         data-contact="9876543210" 
+         data-insta="https://instagram.com/anand_pdt/" 
+         data-linkedin="https://linkedin.com/in/anand_pdt" 
+         data-email="anand31145@gmail.com.com">
       <img src="images/Anand.jpg" alt="Anand Kumar Pandit">
       <div class="name">Anand Kumar Pandit</div>
       <div class="roll">2401CB42</div>
       <a class="view-profile">View Profile</a>
     </div>
 
-    <div class="student-card" data-roll="2401CB19" data-name="Adarsh Kumar" data-img="images/adarsh.jpg" data-bio="Adarsh, the unofficial Shayar of IIT Patna..." data-insta="https://instagram.com/adarsh_iitp/">
+    < <div class="student-card" data-roll="2401CB19" data-name="Adarsh Kumar" data-img="images/adarsh.jpg" data-bio="Adarsh, the unofficial Shayar of IIT Patna..." data-contact="9123456780" data-insta="https://instagram.com/adarsh_iitp/" data-linkedin="https://linkedin.com/in/adarshkumar"data-email="anand@example.com">
       <img src="images/adarsh.jpg" alt="Adarsh Kumar">
       <div class="name">Adarsh Kumar</div>
       <div class="roll">2401CB19</div>
       <a class="view-profile">View Profile</a>
     </div>
 
-    <div class="student-card" data-roll="2401CB32" data-name="Anurag Prashar" data-img="images/anurag.jpg" data-bio="Hey, I'm Anurag! A sports enthusiast..." data-insta="https://www.instagram.com/_anurag__444/">
+    <div class="student-card" data-roll="2401CB32" data-name="Anurag Prashar" data-img="images/anurag.jpg" data-bio="Hey, I'm Anurag! A sports enthusiast..." data-contact="7001234567" data-insta="https://www.instagram.com/_anurag__444/" data-linkedin="https://linkedin.com/in/anuragprashar"data-email="anand@example.com>
       <img src="images/anurag.jpg" alt="Anurag Prashar">
       <div class="name">Anurag Prashar</div>
       <div class="roll">2401CB32</div>
       <a class="view-profile">View Profile</a>
     </div>
 
-    <div class="student-card" data-roll="2401CB33" data-name="Nittin Kumar" data-img="images/nittin.jpg" data-bio="An aspiring engineer passionate about robotics and automation." data-insta="https://instagram.com/nittin_82684/">
+    <div class="student-card" data-roll="2401CB33" data-name="Nittin Kumar" data-img="images/nittin.jpg" data-bio="An aspiring engineer passionate about robotics and automation." data-contact="8009876543" data-insta="https://instagram.com/nittin_82684/" data-linkedin="https://linkedin.com/in/nittinkumar"data-email="anand@example.com>
       <img src="images/nittin.jpg" alt="Nittin Kumar">
       <div class="name">Nittin Kumar</div>
       <div class="roll">2401CB33</div>
+      <a class="view-profile">View Profile</a>
+    </div>
+    <div class="student-card"  
+         data-roll="2401CB12" 
+         data-name="Devyani Mude(C.R.)" 
+         data-img="images/devyani.jpg" 
+         data-bio="I am shifted towards core. Have spirit to learn new skills and experience. I look forward for endless memories, fun and togetherness till graduation." 
+         data-contact="9356306978" 
+         data-insta="https://instagram.com/devyani_mude/" 
+         data-linkedin="https://www.linkedin.com/in/devyani-mude-2a7699328?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" 
+         data-email="devyanimude796@gmail.com">
+      <img src="images/devyani.jpg" alt="Anand Kumar Pandit">
+      <div class="name">Devyani Mude</div>
+      <div class="roll">2401CB12</div>
+      <a class="view-profile">View Profile</a>
+    </div>
+
+<div class="student-card" 
+         data-roll="2401CB43" 
+         data-name="Sagar Kumar" 
+         data-img="images/sagar.jpg" 
+         data-bio="An aspiring engineer passionate about ML and currently doing CP." 
+         data-contact="8541937434" 
+         data-insta="https://instagram.com/Sagar_official__07/" 
+         data-linkedin="https://linkedin.com/in/Sagar Kumar" 
+         data-email="sagarraj121219@gmail.com">
+      <img src="images/sagar.jpg" alt="Anand Kumar Pandit">
+      <div class="name">Sagar Kumar</div>
+      <div class="roll">2401CB43</div>
+      <a class="view-profile">View Profile</a>
+    </div>
+    <div class="student-card" data-roll="2401CB40" data-name="Sneha Sinha" data-img="images/sneha.jpg" data-contact="6206359520" data-bio="A tech enthusiast, Infinito Spons Sub-Coordinator" data-insta="https://instagram.com/__.snehasinha.__/" data-linkedin="https://linkedin.com/in/snehasinha"data-email="anand@example.com>
+      <img src="images/sneha.jpg" alt="Sneha Sinha">
+      <div class="name">Sneha Sinha</div>
+      <div class="roll">2401CB40</div>
+      <a class="view-profile">View Profile</a>
+    </div>
+    <div class="student-card" 
+         data-roll="2401CB35" 
+         data-name="Dhairya Garg" 
+         data-img="images/dhairya.jpg" 
+         data-bio="Heyy. I'm passionate about music, writing, reading, entrepreneurship, and anything expect general acads :) Jokes aside, I'm discovering aspects of research, core, consulting, management and other things, trying to find one that fits. ." 
+         data-contact="7591019419" 
+         data-insta="https://instagram.com/s0crateswastaken/" 
+         data-linkedin="https://linkedin.com/in/anandpandit" 
+         data-email="dhgp271006@gmail.com">
+      <img src="images/dhairya.jpg" alt="Anand Kumar Pandit">
+      <div class="name">Dhairya Garg</div>
+      <div class="roll">2401CB35</div>
+      <a class="view-profile">View Profile</a>
+    </div>
+    <div class="student-card" 
+         data-roll="2401CB14" 
+         data-name="Aanushka Saha" 
+         data-img="images/aanushka.jpg" 
+         data-bio="intered in fashion, public speaking and coding.." 
+         data-contact="6296866230" 
+         data-insta="https://instagram.com/trxshbxgh/" 
+         data-linkedin="https://linkedin.com/in/Aanushka Saha" 
+         data-email="sahaaanushka28@gmail.com">
+      <img src="images/Anand.jpg" alt="Anand Kumar Pandit">
+      <div class="name">Aanushka Saha</div>
+      <div class="roll">2401CB14</div>
+      <a class="view-profile">View Profile</a>
+    </div>
+    <div class="student-card" 
+         data-roll="2401CB29" 
+         data-name="Vaibhav" 
+         data-img="images/vaibhav.png" 
+         data-bio="Giveup on your dreams and d*e kiddos 🥰 (I am the most chill senior out there 🤫)" 
+         data-contact="8799736886" 
+         data-insta="https://instagram.com/_vaibhav.__06/" 
+         data-linkedin="https://linkedin.com/in/11vaibhav06" 
+         data-email="11vaibhav06@gmail.com">
+      <img src="images/vaibhav.jpg" alt="Anand Kumar Pandit">
+      <div class="name">Vaibhav</div>
+      <div class="roll">2401CB29</div>
+      <a class="view-profile">View Profile</a>
+    </div>
+    <div class="student-card" 
+         data-roll="2401CB46" 
+         data-name="Shivanshu Verma" 
+         data-img="images/shivanshu.jpg" 
+         data-bio="I am interested in Competitive Programming and Web development." 
+         data-contact="9369613907" 
+         data-insta="https://instagram.com/shivanshu_0189/" 
+         data-linkedin="https://www.linkedin.com/in/shivanshu-verma-899575321?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" 
+         data-email="shivanshuv2005@gmail.com">
+      <img src="images/shivanshu.jpg" alt="Anand Kumar Pandit">
+      <div class="name">Shivanshu Verma</div>
+      <div class="roll">2401CB46</div>
+      <a class="view-profile">View Profile</a>
+    </div>
+    <div class="student-card" 
+         data-roll="2401CB45" 
+         data-name="Pranay Dev" 
+         data-img="pranay.png" 
+         data-bio="Turning ideas into action through learning, leading, and creative execution." 
+         data-contact="8789478742" 
+         data-insta="https://instagram.com/pranay_iitp/" 
+         data-linkedin="https://linkedin.com/in/pranay-dev-" 
+         data-email="devpranay878947@gmail.com">
+      <img src="pranay.png" alt="Anand Kumar Pandit">
+      <div class="name">Pranay Dev</div>
+      <div class="roll">2401CB45</div>
+      <a class="view-profile">View Profile</a>
+    </div>
+    <div class="student-card" 
+         data-roll="2401CB56" 
+         data-name="Saksham Thakur" 
+         data-img="images/saksham.png" 
+         data-bio="Hi, I'm Saksham Thakur. I'm passionate about music, playing guitar, and sports like badminton and basketball. After completing my B.Tech from IIT Patna, I'm looking to pursue an MBA and explore opportunities in management. I'm excited to leverage my skills in leadership roles and make a meaningful impact." 
+         data-contact="8825253741" 
+         data-insta="https://instagram.com/im_fanatic9/" 
+         data-linkedin="https://www.linkedin.com/in/saksham-thakur-192826321?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_appt" 
+         data-email="yashu.st9404@gmail.com">
+      <img src="images/saksham.png" alt="Anand Kumar Pandit">
+      <div class="name">Saksham Thakur</div>
+      <div class="roll">2401CB56</div>
+      <a class="view-profile">View Profile</a>
+    </div>
+    <div class="student-card" 
+         data-roll="2401CB30" 
+         data-name="Susanth Badiganti" 
+         data-img="images/susanth.jpg" 
+         data-bio="." 
+         data-contact="8247038067" 
+         data-insta="https://instagram.com/susanth193/" 
+         data-linkedin="https://linkedin.com/in/Susanth Badiganti" 
+         data-email="badigantisusanth@gmail.com">
+      <img src="images/susanth.jpg" alt="Anand Kumar Pandit">
+      <div class="name">Susanth Badiganti</div>
+      <div class="roll">2401CB30</div>
+      <a class="view-profile">View Profile</a>
+    </div>
+    <div class="student-card" 
+         data-roll="2401CB26" 
+         data-name="Aryan Jain" 
+         data-img="images/aryan.png" 
+         data-bio="Part Time Kamchoor. Full Time Nerd. Currently doing robotics and anything that I find amusing" 
+         data-contact="8078641007" 
+         data-insta="https://instagram.com/aryan_iitp/" 
+         data-linkedin="https://www.linkedin.com/in/aryan-jain-357129219/t" 
+         data-email="jaryan329@gmail.com">
+      <img src="images/aryan.png" alt="Anand Kumar Pandit">
+      <div class="name">Aryan Jain</div>
+      <div class="roll">2401CB26</div>
+      <a class="view-profile">View Profile</a>
+    </div>
+    <div class="student-card" 
+         data-roll="2401CB59" 
+         data-name="Sama Narasimha Suhas" 
+         data-img="images/suhas.jpg" 
+         data-bio="Hyderabad ♥️
+Movies 🍿 
+Cricket 🏏 
+Love to wander around 
+Have multiple interests ,figuring out between tech(developer) and aviation …
+The goal is sleep,travel,repeat ….
+" 
+         data-contact="8247038067" 
+         data-insta="https://instagram.com/Sama_suhas/" 
+         data-linkedin="https://linkedin.com/in/Sama_suhas" 
+         data-email="sama.suhas13@gmail.com">
+      <img src="images/suhas.jpg" alt="Anand Kumar Pandit">
+      <div class="name">Sama Narasimha Suhas</div>
+      <div class="roll">2401CB59</div>
+      <a class="view-profile">View Profile</a>
+    </div>
+    <div class="student-card" 
+         data-roll="2401CB62" 
+         data-name="Vishal Singh" 
+         data-img="images/vishal.jpg" 
+         data-bio="To enjoy college life , along with some academic goals." 
+         data-contact="8595771250" 
+         data-insta="https://instagram.com/vishaliitp/" 
+         data-linkedin="https://linkedin.com/in/Susanth Badiganti" 
+         data-email="vishaliems@gmail.com">
+      <img src="images/vishal.jpg" alt="Anand Kumar Pandit">
+      <div class="name">Vishal Singh</div>
+      <div class="roll">2401CB62</div>
+      <a class="view-profile">View Profile</a>
+    </div>
+    <div class="student-card" 
+         data-roll="2401CB64" 
+         data-name="Anugu Varshith Reddy " 
+         data-img="images/varshith.jpg" 
+         data-bio="Aspiring Chemical Engineer with a Creative Edge in Runway | Former Aviation Enthusiast, Still Flying in Spirit." 
+         data-contact="7013397493" 
+         data-insta="https://instagram.com/varshith_6668/" 
+         data-linkedin="https://www.linkedin.com/in/anugu-varshith-reddy-725831332?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" 
+         data-email="anuguvarshithreddy@gmail.com">
+      <img src="images/varshith.jpg" alt="Anand Kumar Pandit">
+      <div class="name">Anugu Varshith Reddy </div>
+      <div class="roll">2401CB64</div>
+      <a class="view-profile">View Profile</a>
+    </div>
+  
+    <div class="student-card" 
+         data-roll="2401CB44" 
+         data-name="Srijan Sharma" 
+         data-img="images/srijan.jpg" 
+         data-bio="Passionate about the intersection of finance and technology" 
+         data-contact="8920647827" 
+         data-insta="https://www.instagram.com/srijansharma9522?igsh=cTcwaTdjcGs2Mzhi" 
+         data-linkedin="https://www.linkedin.com/in/srijan-sharma-818232321?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" 
+         data-email="vanshj9522@gmail.com">
+      <img src="images/srijan.jpg" alt="Anand Kumar Pandit">
+      <div class="name">Srijan Sharma</div>
+      <div class="roll">2401CB44</div>
       <a class="view-profile">View Profile</a>
     </div>
   </section>
@@ -322,7 +536,10 @@
       <h2 id="modalName"></h2>
       <p id="modalRoll"></p>
       <p id="modalBio"></p>
-      <a href="#" id="modalInsta" class="insta-link" target="_blank" style="display:none">📸 Instagram</a>
+      <p id="modalContact"></p>
+      <p id="modalEmail"></p>
+      <a href="#" id="modalInsta" class="insta-link" target="_blank" style="display:none">📸 Instagram</a><br>
+      <a href="#" id="modalLinkedIn" class="linkedin-link" target="_blank" style="display:none">💼 LinkedIn</a>
     </div>
   </div>
 
@@ -353,6 +570,12 @@
         document.getElementById("modalRoll").textContent = card.getAttribute("data-roll");
         document.getElementById("modalBio").textContent = card.getAttribute("data-bio");
 
+        const contact = card.getAttribute("data-contact");
+        document.getElementById("modalContact").textContent = contact ? `📞 ${contact}` : '';
+
+        const email = card.getAttribute("data-email");
+        document.getElementById("modalEmail").textContent = email ? `📧 ${email}` : '';
+
         const instaLink = card.getAttribute("data-insta");
         const instaAnchor = document.getElementById("modalInsta");
         if (instaLink) {
@@ -360,6 +583,15 @@
           instaAnchor.style.display = 'inline-block';
         } else {
           instaAnchor.style.display = 'none';
+        }
+
+        const linkedinLink = card.getAttribute("data-linkedin");
+        const linkedinAnchor = document.getElementById("modalLinkedIn");
+        if (linkedinLink) {
+          linkedinAnchor.href = linkedinLink;
+          linkedinAnchor.style.display = 'inline-block';
+        } else {
+          linkedinAnchor.style.display = 'none';
         }
 
         modalOverlay.style.display = "flex";
