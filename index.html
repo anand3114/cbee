@@ -3,21 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Our Students - IIT Patna ChemEng 2025</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Chemical Engineering</title>
   <style>
     :root {
-      --primary: #007BFF;
-      --highlight: #1565c0;
-      --bg: #ffffff;
-      --bg-dark: #121212;
-      --white: #fff;
-      --card-dark: #1e1e1e;
-      --text: #333;
+      --bg-light: #f5f5f5;
+      --bg-dark: #1e1e2f;
+      --text-light: #333;
       --text-dark: #f1f1f1;
-      --muted: #666;
-      --insta: #E1306C;
-      --linkedin: #0a66c2;
+      --card-light: #fff;
+      --card-dark: #2a2a3c;
+      --blue: #007bff;
+      --blue-dark: #0056b3;
     }
 
     * {
@@ -27,11 +23,10 @@
     }
 
     body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 1rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      overflow-x: hidden;
       transition: background 0.3s, color 0.3s;
     }
 
@@ -44,13 +39,11 @@
       display: flex;
       justify-content: center;
       gap: 40px;
-      background-color: var(--white);
-      padding: 15px;
+      background-color: var(--card-light);
+      padding: 20px;
       font-weight: 600;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       flex-wrap: wrap;
-      transition: background 0.3s;
     }
 
     body.dark-mode nav {
@@ -70,541 +63,298 @@
       left: 0;
       width: 100%;
       height: 3px;
-      background-color: var(--highlight);
+      background-color: var(--blue);
       border-radius: 2px;
     }
 
     nav a:hover {
-      color: var(--highlight);
+      color: var(--blue);
     }
 
-    header {
-      text-align: center;
-      font-size: 2rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-      color: var(--highlight);
-    }
-
-    .mode-toggle {
+    .toggle-mode {
       position: fixed;
       bottom: 20px;
       right: 20px;
       padding: 10px 14px;
-      background: var(--primary);
+      border-radius: 50%;
+      background: var(--blue);
       color: white;
       border: none;
-      border-radius: 50%;
       cursor: pointer;
       z-index: 1000;
       font-size: 16px;
     }
 
-    .search-container {
+    @media (max-width: 768px) {
+      .toggle-mode {
+        bottom: 15px;
+        right: 15px;
+        padding: 8px 10px;
+        font-size: 14px;
+      }
+    }
+
+    .hero {
+      position: relative;
+      width: 100vw;
+      height: 400px;
+      overflow: hidden;
+    }
+
+    .hero-slider {
       display: flex;
-      justify-content: center;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
+      height: 100%;
+      transition: transform 0.5s ease-in-out;
     }
 
-    .search-container input {
+    .hero-slide {
+      width: 100vw;
+      height: 100%;
+      flex-shrink: 0;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      padding: 12px;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
     }
 
-    .students-list {
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 2rem;
+      text-align: center;
+      z-index: 2;
+      padding: 0 20px;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+    }
+
+    .dots {
+      position: absolute;
+      bottom: 15px;
+      width: 100%;
+      text-align: center;
+      z-index: 4;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin: 0 5px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background-color: white;
+    }
+
+    .students-section {
+      background-color: var(--card-light);
+      padding: 50px 20px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+
+    body.dark-mode .students-section {
+      background-color: var(--card-dark);
+    }
+
+    .students-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+    }
+
+    .student-grid {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
-      padding: 20px;
+      gap: 30px;
     }
 
     .student-card {
-      background: var(--white);
+      background-color: var(--card-light);
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 20px;
-      width: 250px;
+      padding: 15px;
+      width: 180px;
       text-align: center;
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     }
 
     body.dark-mode .student-card {
-      background: var(--card-dark);
-      color: var(--text-dark);
+      background-color: var(--card-dark);
     }
 
     .student-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      background-color: #e0f0ff;
+    }
+
+    body.dark-mode .student-card:hover {
+      background-color: #32405b;
     }
 
     .student-card img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
+      width: 120px;
+      height: 120px;
       object-fit: cover;
+      border-radius: 50%;
       margin-bottom: 10px;
+      border: 3px solid #eee;
     }
 
-    .name {
-      font-weight: 600;
-      font-size: 1.2rem;
-      margin-bottom: 5px;
-    }
-
-    .roll {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .student-card a {
-      display: inline-block;
-      margin-top: 12px;
-      color: var(--primary);
-      font-weight: 500;
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: 0.2s;
-      cursor: pointer;
-    }
-
-    .student-card a:hover {
-      border-bottom: 1px solid var(--primary);
-    }
-
-    .insta-link, .linkedin-link {
-      display: inline-block;
-      margin-top: 8px;
-      font-weight: 500;
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: 0.3s ease;
-    }
-
-    .insta-link {
-      color: var(--insta);
-    }
-
-    .linkedin-link {
-      color: var(--linkedin);
-    }
-
-    .insta-link:hover, .linkedin-link:hover {
-      text-decoration: underline;
-    }
-
-    .modal-overlay {
+    .hidden {
       display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.5);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
     }
 
-    .modal {
-      background: var(--white);
-      padding: 30px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 400px;
-      position: relative;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-      animation: fadeIn 0.3s ease;
-    }
-
-    body.dark-mode .modal {
-      background: var(--card-dark);
-      color: var(--text-dark);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 1.5rem;
-      color: #888;
+    .see-more {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--blue);
       cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .see-more:hover {
+      color: var(--blue-dark);
     }
 
     footer {
+      background-color: #050505;
       text-align: center;
-      padding: 20px;
+      padding: 30px 20px;
       font-size: 0.9rem;
-      color: #999;
+      color: #aaa;
     }
 
-    @media (max-width: 600px) {
-      nav {
+    @media (max-width: 768px) {
+      .student-grid {
         flex-direction: column;
         align-items: center;
-        gap: 10px;
-      }
-
-      .student-card {
-        width: 90%;
-      }
-
-      header {
-        font-size: 1.6rem;
       }
     }
   </style>
 </head>
 <body>
-  <button class="mode-toggle" onclick="toggleMode()">🌗</button>
 
+  <!-- 🌗 Dark Mode Toggle -->
+  <button class="toggle-mode" onclick="toggleMode()">🌗</button>
+
+  <!-- ✅ Navbar -->
   <nav>
-    <a href="index.html">HOME</a>
-    <a href="students.html" class="active">OUR STUDENTS</a>
+    <a href="#" class="active">HOME</a>
+    <a href="students.html">OUR STUDENTS</a>
     <a href="usefulllink.html">USEFUL LINKS</a>
     <a href="studymaterial.html">STUDY MATERIAL</a>
     <a href="suggestion.html">SUGGESTIONS</a>
   </nav>
 
-  <header>Our Students - IIT Patna ChemEng 2025</header>
-
-  <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search by Roll Number..." aria-label="Search by Roll Number">
+  <!-- 🎯 Hero Section -->
+  <div class="hero" id="hero">
+    <div class="hero-slider" id="slider">
+      <div class="hero-slide" style="background-image: url('1.jpg');">
+        <div class="hero-overlay"></div>
+        <div class="hero-text">Welcome to the Chemical Engineering Family IIT Patna</div>
+      </div>
+      <div class="hero-slide" style="background-image: url('images/3.jpg');">
+        <div class="hero-overlay"></div>
+        <div class="hero-text">Explore. Learn. Innovate. Together We Grow!</div>
+      </div>
+    </div>
+    <div class="dots">
+      <span class="dot active" onclick="goToSlide(0)"></span>
+      <span class="dot" onclick="goToSlide(1)"></span>
+    </div>
   </div>
 
-  <section class="students-list" id="studentsList">
-    <div class="student-card" 
-         data-roll="2401CB42" 
-         data-name="Anand Kumar Pandit" 
-         data-img="images/Anand.jpg" 
-         data-bio="An aspiring engineer passionate about robotics and automation." 
-         data-contact="9876543210" 
-         data-insta="https://instagram.com/anand_pdt/" 
-         data-linkedin="https://linkedin.com/in/anand_pdt" 
-         data-email="anand31145@gmail.com.com">
-      <img src="images/Anand.jpg" alt="Anand Kumar Pandit">
-      <div class="name">Anand Kumar Pandit</div>
-      <div class="roll">2401CB42</div>
-      <a class="view-profile">View Profile</a>
+  <!-- 🧑‍🎓 Students/Gallery -->
+  <section class="students-section">
+    <h2>OUR GALLERY</h2>
+    <div class="student-grid">
+      <div class="student-card"><img src="images/Anand.jpg" alt="Anand"><div>Anand</div></div>
+      <div class="student-card"><img src="images/adarsh.jpg" alt="Adarsh"><div>Adarsh</div></div>
+      <div class="student-card"><img src="images/nittin.jpg" alt="Nittin"><div>Nittin</div></div>
+      <div class="student-card"><img src="images/anurag.jpg" alt="Anurag"><div>Anurag</div></div>
+      <!-- Hidden cards here -->
+      <div class="student-card hidden"><img src="images/sagar.png" alt="Sagar Kumar"><div>Sagar Kumar</div></div>
+     <div class="student-card hidden"><img src="images/sneha.jpg" alt="Student"><div>Sneha Sinha</div></div>
+      <div class="student-card hidden"><img src="pranay.jpg" alt="Student"><div>Pranay Dev</div></div>
+      <div class="student-card hidden"><img src="images/srijan.jpg" alt="Student"><div>Srijan Sharma</div></div>
+      <div class="student-card hidden"><img src="images/shivanshu.jpg" alt="Student"><div>Shivanshu Verma</div></div>
+      <div class="student-card hidden"><img src="images/aanushka.jpeg" alt="Student"><div>Aanushka Sharma</div></div>
+      <div class="student-card hidden"><img src="images/susanth.jpg" alt="Student"><div>Susanth Badiganti</div></div>
+    <div class="student-card hidden"><img src="images/vaibhav.png" alt="Student"><div>Vaibhav</div></div>
+      <div class="student-card hidden"><img src="images/dhairya.jpg" alt="Student"><div>Dhairya Garg</div></div>
+      <div class="student-card hidden"><img src="images/saksham.png" alt="Student"><div>Saksham Thakur</div></div>
+      <div class="student-card hidden"><img src="images/suhas.heic" alt="Student"><div>Sama Narasimha Suhas</div></div>
+      <div class="student-card hidden"><img src="images/Aryan.jpg" alt="Student"><div>Aryan Jain</div></div>
+      <div class="student-card hidden"><img src="images/student5.jpg" alt="Student"><div> </div></div>
     </div>
-
-    < <div class="student-card" data-roll="2401CB19" data-name="Adarsh Kumar" data-img="images/adarsh.jpg" data-bio="Adarsh, the unofficial Shayar of IIT Patna..." data-contact="9123456780" data-insta="https://instagram.com/adarsh_iitp/" data-linkedin="https://linkedin.com/in/adarshkumar"data-email="anand@example.com">
-      <img src="images/adarsh.jpg" alt="Adarsh Kumar">
-      <div class="name">Adarsh Kumar</div>
-      <div class="roll">2401CB19</div>
-      <a class="view-profile">View Profile</a>
-    </div>
-
-    <div class="student-card" data-roll="2401CB32" data-name="Anurag Prashar" data-img="images/anurag.jpg" data-bio="Hey, I'm Anurag! A sports enthusiast..." data-contact="7001234567" data-insta="https://www.instagram.com/_anurag__444/" data-linkedin="https://linkedin.com/in/anuragprashar"data-email="anand@example.com>
-      <img src="images/anurag.jpg" alt="Anurag Prashar">
-      <div class="name">Anurag Prashar</div>
-      <div class="roll">2401CB32</div>
-      <a class="view-profile">View Profile</a>
-    </div>
-
-    <div class="student-card" data-roll="2401CB33" data-name="Nittin Kumar" data-img="images/nittin.jpg" data-bio="An aspiring engineer passionate about robotics and automation." data-contact="8009876543" data-insta="https://instagram.com/nittin_82684/" data-linkedin="https://linkedin.com/in/nittinkumar"data-email="anand@example.com>
-      <img src="images/nittin.jpg" alt="Nittin Kumar">
-      <div class="name">Nittin Kumar</div>
-      <div class="roll">2401CB33</div>
-      <a class="view-profile">View Profile</a>
-    </div>
-    <div class="student-card"  
-         data-roll="2401CB12" 
-         data-name="Devyani Mude(C.R.)" 
-         data-img="images/devyani.jpg" 
-         data-bio="I am shifted towards core. Have spirit to learn new skills and experience. I look forward for endless memories, fun and togetherness till graduation." 
-         data-contact="9356306978" 
-         data-insta="https://instagram.com/devyani_mude/" 
-         data-linkedin="https://www.linkedin.com/in/devyani-mude-2a7699328?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" 
-         data-email="devyanimude796@gmail.com">
-      <img src="images/devyani.jpg" alt="Anand Kumar Pandit">
-      <div class="name">Devyani Mude</div>
-      <div class="roll">2401CB12</div>
-      <a class="view-profile">View Profile</a>
-    </div>
-
-<div class="student-card" 
-         data-roll="2401CB43" 
-         data-name="Sagar Kumar" 
-         data-img="images/sagar.jpg" 
-         data-bio="An aspiring engineer passionate about ML and currently doing CP." 
-         data-contact="8541937434" 
-         data-insta="https://instagram.com/Sagar_official__07/" 
-         data-linkedin="https://linkedin.com/in/Sagar Kumar" 
-         data-email="sagarraj121219@gmail.com">
-      <img src="images/sagar.jpg" alt="Anand Kumar Pandit">
-      <div class="name">Sagar Kumar</div>
-      <div class="roll">2401CB43</div>
-      <a class="view-profile">View Profile</a>
-    </div>
-    <div class="student-card" data-roll="2401CB40" data-name="Sneha Sinha" data-img="images/sneha.jpg" data-contact="6206359520" data-bio="A tech enthusiast, Infinito Spons Sub-Coordinator" data-insta="https://instagram.com/__.snehasinha.__/" data-linkedin="https://linkedin.com/in/snehasinha"data-email="anand@example.com>
-      <img src="images/sneha.jpg" alt="Sneha Sinha">
-      <div class="name">Sneha Sinha</div>
-      <div class="roll">2401CB40</div>
-      <a class="view-profile">View Profile</a>
-    </div>
-    <div class="student-card" 
-         data-roll="2401CB35" 
-         data-name="Dhairya Garg" 
-         data-img="images/dhairya.jpg" 
-         data-bio="Heyy. I'm passionate about music, writing, reading, entrepreneurship, and anything expect general acads :) Jokes aside, I'm discovering aspects of research, core, consulting, management and other things, trying to find one that fits. ." 
-         data-contact="7591019419" 
-         data-insta="https://instagram.com/s0crateswastaken/" 
-         data-linkedin="https://linkedin.com/in/anandpandit" 
-         data-email="dhgp271006@gmail.com">
-      <img src="images/dhairya.jpg" alt="Anand Kumar Pandit">
-      <div class="name">Dhairya Garg</div>
-      <div class="roll">2401CB35</div>
-      <a class="view-profile">View Profile</a>
-    </div>
-    <div class="student-card" 
-         data-roll="2401CB14" 
-         data-name="Aanushka Saha" 
-         data-img="images/aanushka.jpg" 
-         data-bio="intered in fashion, public speaking and coding.." 
-         data-contact="6296866230" 
-         data-insta="https://instagram.com/trxshbxgh/" 
-         data-linkedin="https://linkedin.com/in/Aanushka Saha" 
-         data-email="sahaaanushka28@gmail.com">
-      <img src="images/Anand.jpg" alt="Anand Kumar Pandit">
-      <div class="name">Aanushka Saha</div>
-      <div class="roll">2401CB14</div>
-      <a class="view-profile">View Profile</a>
-    </div>
-    <div class="student-card" 
-         data-roll="2401CB29" 
-         data-name="Vaibhav" 
-         data-img="images/vaibhav.png" 
-         data-bio="Giveup on your dreams and d*e kiddos 🥰 (I am the most chill senior out there 🤫)" 
-         data-contact="8799736886" 
-         data-insta="https://instagram.com/_vaibhav.__06/" 
-         data-linkedin="https://linkedin.com/in/11vaibhav06" 
-         data-email="11vaibhav06@gmail.com">
-      <img src="images/vaibhav.jpg" alt="Anand Kumar Pandit">
-      <div class="name">Vaibhav</div>
-      <div class="roll">2401CB29</div>
-      <a class="view-profile">View Profile</a>
-    </div>
-    <div class="student-card" 
-         data-roll="2401CB46" 
-         data-name="Shivanshu Verma" 
-         data-img="images/shivanshu.jpg" 
-         data-bio="I am interested in Competitive Programming and Web development." 
-         data-contact="9369613907" 
-         data-insta="https://instagram.com/shivanshu_0189/" 
-         data-linkedin="https://www.linkedin.com/in/shivanshu-verma-899575321?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" 
-         data-email="shivanshuv2005@gmail.com">
-      <img src="images/shivanshu.jpg" alt="Anand Kumar Pandit">
-      <div class="name">Shivanshu Verma</div>
-      <div class="roll">2401CB46</div>
-      <a class="view-profile">View Profile</a>
-    </div>
-    <div class="student-card" 
-         data-roll="2401CB45" 
-         data-name="Pranay Dev" 
-         data-img="pranay.png" 
-         data-bio="Turning ideas into action through learning, leading, and creative execution." 
-         data-contact="8789478742" 
-         data-insta="https://instagram.com/pranay_iitp/" 
-         data-linkedin="https://linkedin.com/in/pranay-dev-" 
-         data-email="devpranay878947@gmail.com">
-      <img src="pranay.png" alt="Anand Kumar Pandit">
-      <div class="name">Pranay Dev</div>
-      <div class="roll">2401CB45</div>
-      <a class="view-profile">View Profile</a>
-    </div>
-    <div class="student-card" 
-         data-roll="2401CB56" 
-         data-name="Saksham Thakur" 
-         data-img="images/saksham.png" 
-         data-bio="Hi, I'm Saksham Thakur. I'm passionate about music, playing guitar, and sports like badminton and basketball. After completing my B.Tech from IIT Patna, I'm looking to pursue an MBA and explore opportunities in management. I'm excited to leverage my skills in leadership roles and make a meaningful impact." 
-         data-contact="8825253741" 
-         data-insta="https://instagram.com/im_fanatic9/" 
-         data-linkedin="https://www.linkedin.com/in/saksham-thakur-192826321?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_appt" 
-         data-email="yashu.st9404@gmail.com">
-      <img src="images/saksham.png" alt="Anand Kumar Pandit">
-      <div class="name">Saksham Thakur</div>
-      <div class="roll">2401CB56</div>
-      <a class="view-profile">View Profile</a>
-    </div>
-    <div class="student-card" 
-         data-roll="2401CB30" 
-         data-name="Susanth Badiganti" 
-         data-img="images/susanth.jpg" 
-         data-bio="." 
-         data-contact="8247038067" 
-         data-insta="https://instagram.com/susanth193/" 
-         data-linkedin="https://linkedin.com/in/Susanth Badiganti" 
-         data-email="badigantisusanth@gmail.com">
-      <img src="images/susanth.jpg" alt="Anand Kumar Pandit">
-      <div class="name">Susanth Badiganti</div>
-      <div class="roll">2401CB30</div>
-      <a class="view-profile">View Profile</a>
-    </div>
-    <div class="student-card" 
-         data-roll="2401CB26" 
-         data-name="Aryan Jain" 
-         data-img="images/aryan.png" 
-         data-bio="Part Time Kamchoor. Full Time Nerd. Currently doing robotics and anything that I find amusing" 
-         data-contact="8078641007" 
-         data-insta="https://instagram.com/aryan_iitp/" 
-         data-linkedin="https://www.linkedin.com/in/aryan-jain-357129219/t" 
-         data-email="jaryan329@gmail.com">
-      <img src="images/aryan.png" alt="Anand Kumar Pandit">
-      <div class="name">Aryan Jain</div>
-      <div class="roll">2401CB26</div>
-      <a class="view-profile">View Profile</a>
-    </div>
-    <div class="student-card" 
-         data-roll="2401CB59" 
-         data-name="Sama Narasimha Suhas" 
-         data-img="images/suhas.jpg" 
-         data-bio="Hyderabad ♥️
-Movies 🍿 
-Cricket 🏏 
-Love to wander around 
-Have multiple interests ,figuring out between tech(developer) and aviation …
-The goal is sleep,travel,repeat ….
-" 
-         data-contact="8247038067" 
-         data-insta="https://instagram.com/Sama_suhas/" 
-         data-linkedin="https://linkedin.com/in/Sama_suhas" 
-         data-email="sama.suhas13@gmail.com">
-      <img src="images/suhas.jpg" alt="Anand Kumar Pandit">
-      <div class="name">Sama Narasimha Suhas</div>
-      <div class="roll">2401CB59</div>
-      <a class="view-profile">View Profile</a>
-    </div>
-    <div class="student-card" 
-         data-roll="2401CB62" 
-         data-name="Vishal Singh" 
-         data-img="images/vishal.jpg" 
-         data-bio="To enjoy college life , along with some academic goals." 
-         data-contact="8595771250" 
-         data-insta="https://instagram.com/vishaliitp/" 
-         data-linkedin="https://linkedin.com/in/Susanth Badiganti" 
-         data-email="vishaliems@gmail.com">
-      <img src="images/vishal.jpg" alt="Anand Kumar Pandit">
-      <div class="name">Vishal Singh</div>
-      <div class="roll">2401CB62</div>
-      <a class="view-profile">View Profile</a>
-    </div>
-    <div class="student-card" 
-         data-roll="2401CB64" 
-         data-name="Anugu Varshith Reddy " 
-         data-img="images/varshith.jpg" 
-         data-bio="Aspiring Chemical Engineer with a Creative Edge in Runway | Former Aviation Enthusiast, Still Flying in Spirit." 
-         data-contact="7013397493" 
-         data-insta="https://instagram.com/varshith_6668/" 
-         data-linkedin="https://www.linkedin.com/in/anugu-varshith-reddy-725831332?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" 
-         data-email="anuguvarshithreddy@gmail.com">
-      <img src="images/varshith.jpg" alt="Anand Kumar Pandit">
-      <div class="name">Anugu Varshith Reddy </div>
-      <div class="roll">2401CB64</div>
-      <a class="view-profile">View Profile</a>
-    </div>
-  
-    <div class="student-card" 
-         data-roll="2401CB44" 
-         data-name="Srijan Sharma" 
-         data-img="images/srijan.jpg" 
-         data-bio="Passionate about the intersection of finance and technology" 
-         data-contact="8920647827" 
-         data-insta="https://www.instagram.com/srijansharma9522?igsh=cTcwaTdjcGs2Mzhi" 
-         data-linkedin="https://www.linkedin.com/in/srijan-sharma-818232321?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" 
-         data-email="vanshj9522@gmail.com">
-      <img src="images/srijan.jpg" alt="Anand Kumar Pandit">
-      <div class="name">Srijan Sharma</div>
-      <div class="roll">2401CB44</div>
-      <a class="view-profile">View Profile</a>
+    <div style="text-align: right; margin-top: 20px;">
+      <span class="see-more" onclick="showMoreStudents()">See More</span>
     </div>
   </section>
 
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal" id="modalContent">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
-      <img id="modalImg" src="" alt="" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 10px;">
-      <h2 id="modalName"></h2>
-      <p id="modalRoll"></p>
-      <p id="modalBio"></p>
-      <p id="modalContact"></p>
-      <p id="modalEmail"></p>
-      <a href="#" id="modalInsta" class="insta-link" target="_blank" style="display:none">📸 Instagram</a><br>
-      <a href="#" id="modalLinkedIn" class="linkedin-link" target="_blank" style="display:none">💼 LinkedIn</a>
-    </div>
-  </div>
+  <!-- 📩 Footer -->
+  <footer>
+    <p>Designed by Anand <br>Contact: anand31145@gmail.com</p>
+  </footer>
 
-  <footer>&copy; 2025 IIT Patna | Department of Chemical Engineering</footer>
-
+  <!-- 🎬 Scripts -->
   <script>
+    const slider = document.getElementById('slider');
+    const dots = document.querySelectorAll('.dot');
+    const totalSlides = slider.children.length;
+    let currentSlide = 0;
+
+    function showSlide(i) {
+      currentSlide = i;
+      slider.style.transform = `translateX(-${i * 100}vw)`;
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[i].classList.add('active');
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      showSlide(currentSlide);
+    }
+
+    function goToSlide(i) {
+      showSlide(i);
+    }
+
+    setInterval(nextSlide, 3000);
+
+    document.getElementById('hero').addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
+    document.getElementById('hero').addEventListener('touchend', (e) => {
+      const diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        currentSlide = (diff > 0) ? (currentSlide + 1) % totalSlides : (currentSlide - 1 + totalSlides) % totalSlides;
+        showSlide(currentSlide);
+      }
+    });
+
+    function showMoreStudents() {
+      document.querySelectorAll('.student-card.hidden').forEach(card => card.classList.remove('hidden'));
+      document.querySelector('.see-more').style.display = 'none';
+    }
+
     function toggleMode() {
       document.body.classList.toggle('dark-mode');
     }
-
-    const searchInput = document.getElementById("searchInput");
-    const studentCards = document.querySelectorAll(".student-card");
-    const modalOverlay = document.getElementById("modalOverlay");
-
-    searchInput.addEventListener("input", () => {
-      const query = searchInput.value.trim().toUpperCase();
-      studentCards.forEach(card => {
-        const roll = card.getAttribute("data-roll");
-        card.style.display = roll.includes(query) ? "block" : "none";
-      });
-    });
-
-    document.querySelectorAll(".view-profile").forEach(button => {
-      button.addEventListener("click", function () {
-        const card = this.closest(".student-card");
-        document.getElementById("modalImg").src = card.getAttribute("data-img");
-        document.getElementById("modalName").textContent = card.getAttribute("data-name");
-        document.getElementById("modalRoll").textContent = card.getAttribute("data-roll");
-        document.getElementById("modalBio").textContent = card.getAttribute("data-bio");
-
-        const contact = card.getAttribute("data-contact");
-        document.getElementById("modalContact").textContent = contact ? `📞 ${contact}` : '';
-
-        const email = card.getAttribute("data-email");
-        document.getElementById("modalEmail").textContent = email ? `📧 ${email}` : '';
-
-        const instaLink = card.getAttribute("data-insta");
-        const instaAnchor = document.getElementById("modalInsta");
-        if (instaLink) {
-          instaAnchor.href = instaLink;
-          instaAnchor.style.display = 'inline-block';
-        } else {
-          instaAnchor.style.display = 'none';
-        }
-
-        const linkedinLink = card.getAttribute("data-linkedin");
-        const linkedinAnchor = document.getElementById("modalLinkedIn");
-        if (linkedinLink) {
-          linkedinAnchor.href = linkedinLink;
-          linkedinAnchor.style.display = 'inline-block';
-        } else {
-          linkedinAnchor.style.display = 'none';
-        }
-
-        modalOverlay.style.display = "flex";
-      });
-    });
-
-    function closeModal() {
-      modalOverlay.style.display = "none";
-    }
-
-    window.addEventListener("click", (e) => {
-      if (e.target === modalOverlay) closeModal();
-    });
   </script>
+
 </body>
 </html>
