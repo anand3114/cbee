@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Suggestions - ChemEng Portal</title>
-   <!-- ✅ Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4SVTBNYY4"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -15,7 +14,6 @@
       'page_path': '/suggestion.html'
     });
   </script>
-
   <style>
     :root {
       --bg-light: linear-gradient(to right, #e0ecff, #f5f7fa);
@@ -28,26 +26,22 @@
       --blue-dark: #005ad4;
       --green: #28a745;
     }
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
     body {
       background: var(--bg-light);
       color: var(--text-light);
       padding: 20px;
       transition: background 0.3s, color 0.3s;
     }
-
     body.dark-mode {
       background: var(--bg-dark);
       color: var(--text-dark);
     }
-
     nav {
       display: flex;
       justify-content: center;
@@ -59,17 +53,14 @@
       margin-bottom: 40px;
       flex-wrap: wrap;
     }
-
     body.dark-mode nav {
       background-color: var(--card-dark);
     }
-
     nav a {
       text-decoration: none;
       color: inherit;
       position: relative;
     }
-
     nav a.active::after {
       content: '';
       position: absolute;
@@ -80,11 +71,9 @@
       background-color: var(--blue);
       border-radius: 2px;
     }
-
     nav a:hover {
       color: var(--blue);
     }
-
     .toggle-mode {
       position: fixed;
       bottom: 20px;
@@ -104,7 +93,6 @@
       justify-content: center;
       align-items: center;
     }
-
     .container {
       max-width: 700px;
       margin: auto;
@@ -115,32 +103,26 @@
       animation: slideIn 0.6s ease;
       transition: background 0.3s;
     }
-
     body.dark-mode .container {
       background: var(--card-dark);
     }
-
     @keyframes slideIn {
       from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     h2 {
       text-align: center;
       font-size: 2.2em;
       margin-bottom: 10px;
     }
-
     p.description {
       text-align: center;
       margin-bottom: 30px;
       color: #555;
     }
-
     body.dark-mode p.description {
       color: #ccc;
     }
-
     form input,
     form select,
     form textarea {
@@ -151,12 +133,10 @@
       border-radius: 10px;
       font-size: 1em;
     }
-
     form textarea {
       resize: vertical;
       min-height: 120px;
     }
-
     form button {
       width: 100%;
       padding: 14px;
@@ -168,11 +148,9 @@
       color: white;
       transition: 0.3s ease;
     }
-
     form button:hover {
       background: var(--blue-dark);
     }
-
     .toast {
       display: none;
       position: fixed;
@@ -187,22 +165,18 @@
       z-index: 1000;
       animation: fadein 0.5s, fadeout 0.5s 2.5s;
     }
-
     @keyframes fadein {
       from { opacity: 0; right: 0; }
       to { opacity: 1; right: 20px; }
     }
-
     @keyframes fadeout {
       from { opacity: 1; }
       to { opacity: 0; }
     }
-
     .dashboard {
       margin-top: 40px;
       text-align: center;
     }
-
     .dashboard a {
       text-decoration: none;
       color: white;
@@ -212,11 +186,9 @@
       display: inline-block;
       transition: background 0.3s;
     }
-
     .dashboard a:hover {
       background-color: var(--blue-dark);
     }
-
     @media (max-width: 768px) {
       nav {
         flex-wrap: wrap;
@@ -230,7 +202,6 @@
         font-size: 1.8em;
       }
     }
-
     @media (max-width: 480px) {
       .toggle-mode {
         bottom: 15px;
@@ -244,10 +215,8 @@
 </head>
 <body>
 
-  <!-- 🌗 Toggle Button -->
   <button class="toggle-mode" onclick="toggleMode()">🌗</button>
 
-  <!-- ✅ Navbar -->
   <nav>
     <a href="index.html">HOME</a>
     <a href="students.html">OUR STUDENTS</a>
@@ -260,8 +229,9 @@
     <h2>📬 Share Your Suggestions</h2>
     <p class="description">We’d love to hear your ideas to make the ChemEng Portal even better!</p>
     <form id="suggestionForm" action="https://api.sheetbest.com/sheets/98715fba-a56c-46bb-9035-677e21363964" method="POST">
-      <input type="text" name="name" placeholder="Your Name (optional)" />
-      <input type="email" name="email" placeholder="Email (optional)" />
+     <input type="text" name="name" placeholder="Your Name" required />
+<input type="email" name="email" placeholder="Email" required />
+
       <select name="type" required>
         <option disabled selected>Type of Suggestion</option>
         <option>Feature Request</option>
@@ -271,8 +241,13 @@
       </select>
       <textarea name="message" placeholder="Write your suggestion here..." required></textarea>
       <input type="text" name="attachment" placeholder="Attachment link (optional)" />
+
+      <!-- ✅ Hidden device info field (MANDATORY) -->
+      <input type="text" name="device" id="deviceField" required style="display:none;" />
+
       <button type="submit">Submit</button>
     </form>
+
     <div class="dashboard">
       <p>📊 Want to view all suggestions?</p>
       <a href="https://docs.google.com/spreadsheets/d/1AjA3i1lzP5ZxLHZQeZB2mBh6TW9DMBKexwq9LgLg7A4/edit" target="_blank">Open Dashboard</a>
@@ -284,9 +259,20 @@
   <script>
     const form = document.getElementById('suggestionForm');
     const toast = document.getElementById('toast');
+    const deviceField = document.getElementById('deviceField');
+
+    // Auto-fill device info
+    deviceField.value = navigator.userAgent;
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+
+      // Double check device info exists
+      if (!deviceField.value.trim()) {
+        alert("Device information is missing. Please reload the page.");
+        return;
+      }
+
       const formData = new FormData(form);
       const jsonData = {};
       formData.forEach((value, key) => {
@@ -303,6 +289,7 @@
         if (response.ok) {
           toast.style.display = 'block';
           form.reset();
+          deviceField.value = navigator.userAgent; // refill after reset
           setTimeout(() => {
             toast.style.display = 'none';
           }, 3000);
