@@ -996,13 +996,15 @@ Football is life"
     const studentCards = document.querySelectorAll(".student-card");
     const modalOverlay = document.getElementById("modalOverlay");
 
-    searchInput.addEventListener("input", () => {
-      const query = searchInput.value.trim().toUpperCase();
-      studentCards.forEach(card => {
-        const roll = card.getAttribute("data-roll");
-        card.style.display = roll.includes(query) ? "block" : "none";
-      });
-    });
+  searchInput.addEventListener("input", () => {
+  const query = searchInput.value.trim().toUpperCase();
+  studentCards.forEach(card => {
+    const roll = card.getAttribute("data-roll").toUpperCase();
+    const name = card.getAttribute("data-name").toUpperCase();
+    card.style.display = (roll.includes(query) || name.includes(query)) ? "block" : "none";
+  });
+});
+
 
     document.querySelectorAll(".view-profile").forEach(button => {
       button.addEventListener("click", function () {
