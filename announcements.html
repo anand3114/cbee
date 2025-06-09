@@ -116,219 +116,214 @@
       cursor: not-allowed;
     }
   </style>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
-    import {
-      getFirestore, collection, getDocs, query, orderBy,
-      updateDoc, doc, increment, setDoc, onSnapshot
-    } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
-    import {
-      getAuth, onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
+ <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
+  import {
+    getFirestore, collection, getDocs, query, orderBy,
+    updateDoc, doc, increment, setDoc, onSnapshot, getDoc
+  } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
+  import {
+    getAuth, onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyBVIU4-cNma6fZCef2BQaGOo307TGBDk50",
-      authDomain: "attendance311.firebaseapp.com",
-      projectId: "attendance311",
-      storageBucket: "attendance311.appspot.com",
-      messagingSenderId: "564903256212",
-      appId: "1:564903256212:web:37dae9a02e39abbf3dd481",
-      measurementId: "G-NZEEX42J3P"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyBVIU4-cNma6fZCef2BQaGOo307TGBDk50",
+    authDomain: "attendance311.firebaseapp.com",
+    projectId: "attendance311",
+    storageBucket: "attendance311.appspot.com",
+    messagingSenderId: "564903256212",
+    appId: "1:564903256212:web:37dae9a02e39abbf3dd481",
+    measurementId: "G-NZEEX42J3P"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const auth = getAuth(app);
-    const container = document.getElementById("announcement-list");
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+  const container = document.getElementById("announcement-list");
 
-    const ADMIN_EMAIL = "anand31145@example.com"; // Change to your admin email
-    let currentUser;
+  const ADMIN_EMAIL = "anand31145@example.com";
+  let currentUser;
 
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        alert("Please log in first.");
-        window.location.href = "index.html";
-        return;
-      }
-      currentUser = user;
-      await loadAnnouncements();
-    });
-
-    function getEmoji(type) {
-      return {
-        like: "👍",
-        love: "❤️",
-        laugh: "😂",
-        wow: "😮"
-      }[type] || "";
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      alert("Please log in first.");
+      window.location.href = "index.html";
+      return;
     }
+    currentUser = user;
+    await loadAnnouncements();
+  });
 
-    async function loadAnnouncements() {
-      try {
-        const q = query(collection(db, "announcements"), orderBy("date", "desc"));
-        // Using onSnapshot for real-time updates
-        onSnapshot(q, async (snapshot) => {
-          container.innerHTML = "";
-          if (snapshot.empty) {
-            container.innerHTML = "<p>No announcements available.</p>";
-            return;
-          }
+  function getEmoji(type) {
+    return {
+      like: "👍",
+      love: "❤️",
+      laugh: "😂",
+      wow: "😮"
+    }[type] || "";
+  }
 
-          // Load all user reactions once for this user
-          const userLikesCol = collection(db, "users", currentUser.uid, "likes");
-          const userLikesSnap = await getDocs(userLikesCol);
-          const userLikesMap = {};
-          userLikesSnap.forEach(doc => {
-            userLikesMap[doc.id] = doc.data();
-          });
+  async function loadAnnouncements() {
+    try {
+      const q = query(collection(db, "announcements"), orderBy("date", "desc"));
+      onSnapshot(q, async (snapshot) => {
+        container.innerHTML = "";
+        if (snapshot.empty) {
+          container.innerHTML = "<p>No announcements available.</p>";
+          return;
+        }
 
-          for (const docSnap of snapshot.docs) {
-            const data = docSnap.data();
-            const annId = docSnap.id;
+        const userLikesCol = collection(db, "users", currentUser.uid, "likes");
+        const userLikesSnap = await getDocs(userLikesCol);
+        const userLikesMap = {};
+        userLikesSnap.forEach(doc => {
+          userLikesMap[doc.id] = doc.data();
+        });
 
-            let dateText = "Unknown";
-            try {
-              dateText = data.date?.toDate().toLocaleString() || "Unknown";
-            } catch {}
+        for (const docSnap of snapshot.docs) {
+          const data = docSnap.data();
+          const annId = docSnap.id;
 
-            const isAdmin = currentUser.email === ADMIN_EMAIL;
-            const hasReacted = !!userLikesMap[annId];
+          let dateText = "Unknown";
+          try {
+            dateText = data.date?.toDate().toLocaleString() || "Unknown";
+          } catch {}
 
-            // Announcement card
-            const annCard = document.createElement("div");
-            annCard.className = "announcement";
-            annCard.id = `ann-${annId}`;
-            annCard.innerHTML = `
-              <h3>${data.title || "Untitled"}</h3>
-              <small>${dateText}</small>
-              <p>${data.content || ""}</p>
-            `;
+          const isAdmin = currentUser.email === ADMIN_EMAIL;
+          const hasReacted = !!userLikesMap[annId]?.reacted;
 
-            // Reaction buttons container
-            const reactionDiv = document.createElement("div");
-            ["like", "love", "laugh", "wow"].forEach(type => {
-              const btn = document.createElement("button");
-              btn.className = "react-btn";
-              btn.textContent = getEmoji(type) + " " + (data.reactions?.[type] || 0);
-              btn.disabled = hasReacted;
-              btn.title = hasReacted ? "You already reacted" : `React with ${type}`;
+          const annCard = document.createElement("div");
+          annCard.className = "announcement";
+          annCard.id = `ann-${annId}`;
+          annCard.innerHTML = `
+            <h3>${data.title || "Untitled"}</h3>
+            <small>${dateText}</small>
+            <p>${data.content || ""}</p>
+          `;
 
-              btn.addEventListener("click", async () => {
+          const reactionDiv = document.createElement("div");
+          ["like", "love", "laugh", "wow"].forEach(type => {
+            const btn = document.createElement("button");
+            btn.className = "react-btn";
+            btn.textContent = getEmoji(type) + " " + (data.reactions?.[type] || 0);
+            btn.disabled = hasReacted;
+            btn.title = hasReacted ? "You already reacted" : `React with ${type}`;
+
+            btn.addEventListener("click", async () => {
+              const likeRef = doc(db, "users", currentUser.uid, "likes", annId);
+              const likeSnap = await getDoc(likeRef);
+              if (!likeSnap.exists()) {
                 btn.disabled = true;
                 const annRef = doc(db, "announcements", annId);
                 await updateDoc(annRef, {
                   [`reactions.${type}`]: increment(1)
                 });
-                const likeRef = doc(db, "users", currentUser.uid, "likes", annId);
                 await setDoc(likeRef, { reacted: true, type });
-              });
-
-              reactionDiv.appendChild(btn);
+              }
             });
 
-            // Admin edit button
-            if (isAdmin) {
-              const editBtn = document.createElement("button");
-              editBtn.className = "edit-btn";
-              editBtn.textContent = "Edit";
-              editBtn.addEventListener("click", () => {
-                alert(`Edit feature for announcement: ${annId} (admin only).`);
-              });
-              reactionDiv.appendChild(editBtn);
-            }
+            reactionDiv.appendChild(btn);
+          });
 
-            annCard.appendChild(reactionDiv);
+          if (isAdmin) {
+            const editBtn = document.createElement("button");
+            editBtn.className = "edit-btn";
+            editBtn.textContent = "Edit";
+            editBtn.addEventListener("click", () => {
+              alert(`Edit feature for announcement: ${annId} (admin only).`);
+            });
+            reactionDiv.appendChild(editBtn);
+          }
 
-            // Comments section
-            const commentsSection = document.createElement("div");
-            commentsSection.className = "comments-section";
+          annCard.appendChild(reactionDiv);
 
-            const commentsList = document.createElement("div");
-            commentsList.id = `comments-list-${annId}`;
-            commentsSection.appendChild(commentsList);
+          const commentsSection = document.createElement("div");
+          commentsSection.className = "comments-section";
 
-            // Comment input + button
-            const commentInput = document.createElement("input");
-            commentInput.type = "text";
-            commentInput.placeholder = "Write a comment...";
-            commentInput.className = "comment-input";
+          const commentsList = document.createElement("div");
+          commentsList.id = `comments-list-${annId}`;
+          commentsSection.appendChild(commentsList);
 
-            const commentBtn = document.createElement("button");
-            commentBtn.textContent = "Post";
-            commentBtn.className = "comment-btn";
+          const commentInput = document.createElement("input");
+          commentInput.type = "text";
+          commentInput.placeholder = "Write a comment...";
+          commentInput.className = "comment-input";
+
+          const commentBtn = document.createElement("button");
+          commentBtn.textContent = "Post";
+          commentBtn.className = "comment-btn";
+          commentBtn.disabled = true;
+
+          commentInput.addEventListener("input", () => {
+            commentBtn.disabled = commentInput.value.trim() === "";
+          });
+
+          commentBtn.addEventListener("click", async () => {
+            const text = commentInput.value.trim();
+            if (!text) return;
+
             commentBtn.disabled = true;
 
-            commentInput.addEventListener("input", () => {
-              commentBtn.disabled = commentInput.value.trim() === "";
+            const commentsRef = collection(db, "announcements", annId, "comments");
+            await setDoc(doc(commentsRef), {
+              userId: currentUser.uid,
+              userEmail: currentUser.email,
+              text,
+              timestamp: new Date()
             });
 
-            commentBtn.addEventListener("click", async () => {
-              const text = commentInput.value.trim();
-              if (!text) return;
+            commentInput.value = "";
+            commentBtn.disabled = true;
+          });
 
-              commentBtn.disabled = true;
+          commentsSection.appendChild(commentInput);
+          commentsSection.appendChild(commentBtn);
+          annCard.appendChild(commentsSection);
 
-              const commentsRef = collection(db, "announcements", annId, "comments");
-              await setDoc(doc(commentsRef), {
-                userId: currentUser.uid,
-                userEmail: currentUser.email,
-                text,
-                timestamp: new Date()
-              });
+          container.appendChild(annCard);
 
-              commentInput.value = "";
-              commentBtn.disabled = true;
-            });
-
-            commentsSection.appendChild(commentInput);
-            commentsSection.appendChild(commentBtn);
-            annCard.appendChild(commentsSection);
-
-            container.appendChild(annCard);
-
-            // Load and listen for comments realtime
-            loadComments(annId);
-          }
-        });
-      } catch (err) {
-        console.error("Error loading announcements:", err);
-        container.innerHTML = `<p>Error loading announcements.</p>`;
-      }
-    }
-
-    function loadComments(announcementId) {
-      const commentsList = document.getElementById(`comments-list-${announcementId}`);
-      if (!commentsList) return;
-
-      const commentsRef = collection(db, "announcements", announcementId, "comments");
-      const q = query(commentsRef, orderBy("timestamp", "asc"));
-
-      onSnapshot(q, (snapshot) => {
-        commentsList.innerHTML = "";
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          const dateStr = data.timestamp?.toDate ? data.timestamp.toDate().toLocaleString() : "";
-          const commentDiv = document.createElement("div");
-          commentDiv.className = "comment";
-          commentDiv.innerHTML = `<strong>${data.userEmail}:</strong> ${escapeHtml(data.text)} <br/><small>${dateStr}</small>`;
-          commentsList.appendChild(commentDiv);
-        });
+          loadComments(annId);
+        }
       });
+    } catch (err) {
+      console.error("Error loading announcements:", err);
+      container.innerHTML = `<p>Error loading announcements.</p>`;
     }
+  }
 
-    // Simple HTML escape to avoid injection issues
-    function escapeHtml(text) {
-      return text.replace(/[&<>"']/g, function (m) {
-        return {
-          '&': "&amp;",
-          '<': "&lt;",
-          '>': "&gt;",
-          '"': "&quot;",
-          "'": "&#39;"
-        }[m];
+  function loadComments(announcementId) {
+    const commentsList = document.getElementById(`comments-list-${announcementId}`);
+    if (!commentsList) return;
+
+    const commentsRef = collection(db, "announcements", announcementId, "comments");
+    const q = query(commentsRef, orderBy("timestamp", "asc"));
+
+    onSnapshot(q, (snapshot) => {
+      commentsList.innerHTML = "";
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const dateStr = data.timestamp?.toDate ? data.timestamp.toDate().toLocaleString() : "";
+        const commentDiv = document.createElement("div");
+        commentDiv.className = "comment";
+        commentDiv.innerHTML = `<strong>${data.userEmail}:</strong> ${escapeHtml(data.text)} <br/><small>${dateStr}</small>`;
+        commentsList.appendChild(commentDiv);
       });
-    }
-  </script>
+    });
+  }
+
+  function escapeHtml(text) {
+    return text.replace(/[&<>"']/g, function (m) {
+      return {
+        '&': "&amp;",
+        '<': "&lt;",
+        '>': "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }[m];
+    });
+  }
+</script>
+
 </head>
 <body>
   <h1>📢 Latest Announcements</h1>
